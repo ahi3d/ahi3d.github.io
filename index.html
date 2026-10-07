@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AHİ.3D</title>
+<meta name="description" content="AHİ.3D 3D Baskı ve Tasarım Atölyesi: figürler, vazolar, saksılar ve size özel üretim. WhatsApp'tan fiyat sorun.">
+<meta property="og:title" content="AHİ.3D · 3D Baskı ve Tasarım Atölyesi">
+<meta property="og:description" content="Figürler, vazolar, saksılar ve size özel 3D baskı. WhatsApp'tan fiyat sorun.">
+<meta property="og:image" content="https://hasanbol352-dev.github.io/ahi3d/og-logo.jpg">
+<meta property="og:url" content="https://hasanbol352-dev.github.io/ahi3d/">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: tek sütun, katman çizgili (3D baskı) hero, sağ altta sabit WhatsApp butonu */
+:root {
+  --bg: #f3f6f1;
+  --surface: #ffffff;
+  --ink: #0f2f27;         /* logodaki koyu yeşil */
+  --muted: #546a5f;
+  --line: #d6e0d4;
+  --accent: #5f8a45;      /* logodaki adaçayı yeşili */
+  --wa: #1fa855;          /* WhatsApp yeşili */
+  --wa-ink: #ffffff;
+  --display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1f1a; --surface: #13302a; --ink: #eef4ec; --muted: #a3b8aa;
+    --line: #23443b; --accent: #a9c98a; --wa: #25c264; --wa-ink: #06210f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1f1a; --surface: #13302a; --ink: #eef4ec; --muted: #a3b8aa;
+  --line: #23443b; --accent: #a9c98a; --wa: #25c264; --wa-ink: #06210f;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.6 var(--body); }
+.wrap { max-width: 68rem; margin: 0 auto; padding-inline: 1.25rem; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.08; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+header.top { padding-block: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.logo { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; text-decoration: none; }
+.logo span { color: var(--accent); }
+.top-link { font-weight: 600; font-size: .95rem; color: var(--muted); text-decoration: none; }
+.top-link:hover { color: var(--ink); }
+
+
+.btn { display: inline-flex; align-items: center; gap: .6rem; padding: .95rem 1.4rem; border-radius: 999px; font-weight: 600; text-decoration: none; font-size: 1.05rem; transition: transform .15s ease, box-shadow .15s ease; }
+.btn-wa { background: var(--wa); color: var(--wa-ink); box-shadow: 0 6px 18px -6px var(--wa); }
+.btn-wa:hover { transform: translateY(-2px); }
+.btn-ghost { border: 1.5px solid var(--line); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn svg { width: 1.3rem; height: 1.3rem; flex: none; }
+
+.logo { display: inline-flex; align-items: center; gap: .6rem; }
+@media (prefers-reduced-motion: reduce) { .btn, .float-wa { transition: none; } }
+
+
+/* Giriş sahnesi: logo katman katman "basılarak" belirir */
+.stage { position: relative; overflow: hidden; color: #eef4ec;
+  background: radial-gradient(60rem 36rem at 50% 38%, #1d5646 0%, #0f332b 45%, #08201b 100%); }
+.layers { position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background: repeating-linear-gradient(to bottom, rgba(169,201,138,.07) 0 1px, transparent 1px 7px);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 0%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 0%, transparent 70%); }
+.stage .wrap { position: relative; }
+.stage .logo { color: #eef4ec; }
+.stage .logo span { color: #a9c98a; }
+.stage .top-link { color: #c9dccb; }
+.stage .top-link:hover { color: #fff; }
+.logo img { height: 2.1rem; width: auto; }
+.hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding-block: 1rem 5rem; }
+.tilt { position: relative; width: min(34rem, 100%); perspective: 900px; }
+.glow { position: absolute; inset: 10% 8%; border-radius: 50%; background: radial-gradient(closest-side, rgba(169,201,138,.45), transparent); filter: blur(30px); animation: pulse 5s ease-in-out 3s infinite; }
+.print { position: relative; transform-style: preserve-3d; transition: transform .25s ease-out; animation: floaty 6s ease-in-out 2.6s infinite; }
+.print img { display: block; width: 100%; height: auto; -webkit-mask-image: radial-gradient(ellipse 58% 62% at 50% 50%, #000 70%, transparent 100%); mask-image: radial-gradient(ellipse 58% 62% at 50% 50%, #000 70%, transparent 100%); filter: drop-shadow(0 30px 40px rgba(0,0,0,.45)); animation: build 2.2s steps(40) .3s both; }
+.nozzle { position: absolute; left: 4%; right: 4%; height: 2px; bottom: 0; background: linear-gradient(90deg, transparent, #d9f2c4, #fff, #d9f2c4, transparent); box-shadow: 0 0 18px 4px rgba(200,240,170,.6); opacity: 0; animation: nozzle 2.2s linear .3s both; }
+@keyframes build { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes nozzle { 0% { bottom: 0; opacity: 1; } 96% { bottom: 100%; opacity: 1; } 100% { bottom: 100%; opacity: 0; } }
+@keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+@keyframes pulse { 0%, 100% { opacity: .8; } 50% { opacity: 1; } }
+.wordmark { font-size: clamp(3.2rem, 11vw, 7rem); font-weight: 800; letter-spacing: -0.035em; line-height: .95; margin-top: .5rem;
+  background: linear-gradient(180deg, #ffffff 30%, #a9c98a 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: rise .9s cubic-bezier(.2,.7,.2,1) 1.8s both; }
+.wordmark span { color: #a9c98a; -webkit-text-fill-color: #a9c98a; }
+.tagline { font-family: var(--mono); font-size: .85rem; letter-spacing: .22em; text-transform: uppercase; color: #a9c98a; margin-top: 1rem; animation: rise .9s cubic-bezier(.2,.7,.2,1) 1.95s both; }
+.hero .lead { color: #c9dccb; max-width: 36rem; font-size: 1.15rem; margin-top: 1.5rem; animation: rise .9s cubic-bezier(.2,.7,.2,1) 2.1s both; }
+.cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: 2rem; animation: rise .9s cubic-bezier(.2,.7,.2,1) 2.2s both; }
+.btn-line { border: 1.5px solid rgba(201,220,203,.4); color: #eef4ec; }
+.btn-line:hover { border-color: #eef4ec; }
+@keyframes rise { from { opacity: .001; translate: 0 14px; } }
+@media (prefers-reduced-motion: reduce) {
+  .print, .print img, .nozzle, .glow, .wordmark, .tagline, .hero .lead, .cta-row { animation: none; }
+  .nozzle { display: none; }
+}
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+.chip { font: 600 .95rem var(--body); padding: .55rem 1rem; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.chip span { font-family: var(--mono); font-size: .75rem; color: var(--muted); margin-left: .25rem; }
+.chip.on { background: #0f2f27; border-color: #0f2f27; color: #eef4ec; }
+.chip.on span { color: #a9c98a; }
+.gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; grid-auto-flow: dense; }
+.item { margin: 0; background: #0f2f27; border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column; color: #eef4ec; box-shadow: 0 18px 36px -24px rgba(8,30,24,.7); transition: transform .3s ease, box-shadow .3s ease; }
+.item:hover { transform: translateY(-4px); box-shadow: 0 26px 44px -22px rgba(8,30,24,.75); }
+.item.feat { grid-column: span 2; grid-row: span 2; }
+.item[hidden] { display: none; }
+.zoom { all: unset; cursor: zoom-in; display: block; overflow: hidden; flex: 1; }
+.zoom:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.item img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform .5s ease; }
+.item:hover img { transform: scale(1.05); }
+.item figcaption { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "no ask" "nm ask"; align-items: center; column-gap: .75rem; padding: .85rem 1rem 1rem; }
+.item .no, .lightbox .no { grid-area: no; font-family: var(--mono); font-size: .72rem; color: #a9c98a; letter-spacing: .06em; display: block; }
+.item .nm, .lightbox .nm { grid-area: nm; font-weight: 600; font-size: .98rem; line-height: 1.3; display: block; }
+.item.feat .nm { font-family: var(--display); font-size: 1.5rem; }
+.ask { grid-area: ask; font-weight: 600; font-size: .85rem; text-decoration: none; color: #fff; background: var(--wa); padding: .5rem .85rem; border-radius: 999px; white-space: nowrap; }
+.ask:hover { filter: brightness(1.08); }
+.lightbox { border: 0; padding: 0; background: transparent; max-width: min(92vw, 46rem); width: 100%; overflow: visible; color: #eef4ec; }
+.lightbox::backdrop { background: rgba(4,16,13,.88); backdrop-filter: blur(4px); }
+.lightbox img { width: 100%; height: auto; max-height: 76vh; object-fit: contain; display: block; border-radius: 1rem 1rem 0 0; background: #0f2f27; }
+.lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: #0f2f27; padding: 1rem 1.25rem; border-radius: 0 0 1rem 1rem; }
+.lb-close { position: absolute; top: -2.75rem; right: 0; background: none; border: 0; color: #eef4ec; font-size: 2.25rem; line-height: 1; cursor: pointer; }
+.lb-nav { position: absolute; top: 40%; translate: 0 -50%; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 0; background: rgba(238,244,236,.9); color: #0f2f27; font-size: 1.8rem; line-height: 1; cursor: pointer; }
+.lb-prev { left: .75rem; } .lb-next { right: .75rem; }
+section.block { padding-block: 4rem; border-top: 1px solid var(--line); }
+section.block h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 2rem; }
+.intro { color: var(--muted); max-width: 40rem; margin: -1rem 0 2rem; }
+
+.services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.service { background: var(--surface); border: 1px solid var(--line); border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: .6rem; }
+.service h3 { font-size: 1.3rem; font-weight: 600; }
+.service p { color: var(--muted); }
+.spec { margin-top: auto; padding-top: .75rem; font-family: var(--mono); font-size: .78rem; color: var(--accent); }
+
+.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; counter-reset: s; }
+.steps li { counter-increment: s; display: flex; flex-direction: column; gap: .5rem; }
+.steps li::before { content: counter(s); font-family: var(--display); font-weight: 800; font-size: 2.6rem; color: var(--accent); line-height: 1; }
+.steps h3 { font-size: 1.2rem; font-weight: 600; }
+.steps p { color: var(--muted); }
+
+.contact { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; background: var(--ink); color: var(--bg); border-radius: 1.5rem; padding: 2.25rem; }
+.contact h2 { margin: 0 0 .5rem; color: var(--bg); }
+.contact p { opacity: .8; }
+.num { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1rem; font-family: var(--mono); font-size: 1.05rem; font-variant-numeric: tabular-nums; user-select: all; }
+.copy { font: 600 .8rem var(--body); background: transparent; color: var(--bg); border: 1px solid currentColor; border-radius: 999px; padding: .3rem .75rem; cursor: pointer; opacity: .85; }
+.copy:hover { opacity: 1; }
+
+footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
+
+.float-wa { position: fixed; right: 1.25rem; bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); width: 3.75rem; height: 3.75rem; border-radius: 50%; background: var(--wa); color: var(--wa-ink); display: grid; place-items: center; box-shadow: 0 10px 24px -8px rgba(0,0,0,.45); z-index: 10; transition: transform .15s ease; }
+.float-wa:hover { transform: scale(1.07); }
+.float-wa svg { width: 2rem; height: 2rem; }
+
+@media (max-width: 960px) { .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+  .item.feat { grid-row: span 1; }
+  .item.feat .nm { font-size: 1.2rem; }
+  .item figcaption { grid-template-columns: 1fr; grid-template-areas: "no" "nm" "ask"; row-gap: .35rem; padding: .7rem; }
+  .ask { justify-self: start; }
+  .services, .steps { grid-template-columns: 1fr; }
+  .contact { padding: 1.5rem; }
+}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01Zm-7.01 15.24h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></symbol>
+</svg>
+
+<div class="stage">
+  <div class="layers" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="top">
+      <a class="logo" href="#"><img src="emblem-cut.webp" alt="" width="64" height="45"><span class="logo-txt">AHİ<span>.</span>3D</span></a>
+      <a class="top-link js-wa" href="#" target="_blank" rel="noopener">WhatsApp'tan yaz</a>
+    </header>
+
+    <section class="hero">
+      <div class="tilt" id="tilt">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="print">
+          <img src="emblem-cut.webp" alt="AHİ.3D logosu" width="640" height="452">
+          <div class="nozzle" aria-hidden="true"></div>
+        </div>
+      </div>
+      <h1 class="wordmark">AHİ<span>.</span>3D</h1>
+      <div class="tagline">3D Baskı ve Tasarım Atölyesi</div>
+      <p class="lead">Hayal ettiğiniz figürü katman katman üretiyoruz. Çizgi film karakterleri, süper kahramanlar, hayvan figürleri, vazolar, saksılar ve çok daha fazlası.</p>
+      <div class="cta-row">
+        <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa-icon"/></svg>WhatsApp'tan iletişime geç</a>
+        <a class="btn btn-line" href="#urunler">Ürünleri gör</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="block gallery-block" id="urunler">
+    <h2>Ürünlerimizden</h2>
+    <p class="intro">Hepsi atölyemizde basıldı. Bir ürüne dokunup büyük görün, beğendiyseniz "Fiyat sor" ile ürün numarasıyla birlikte WhatsApp'tan yazın.</p>
+    <div class="filters" role="group" aria-label="Ürünleri filtrele">
+      <button type="button" class="chip on" data-f="all">Tümü <span>16</span></button>
+      <button type="button" class="chip" data-f="figur">Figürler <span>3</span></button>
+      <button type="button" class="chip" data-f="vazo">Vazolar <span>10</span></button>
+      <button type="button" class="chip" data-f="saksi">Saksılar <span>3</span></button>
+    </div>
+    <div class="gallery" id="gallery">
+      <figure class="item feat" data-cat="figur">
+        <button class="zoom" type="button" data-no="10" aria-label="Kurt figürü büyük göster"><img src="urunler/orijinal/urun-10.webp" alt="Kurt figürü" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 10 · Figür</span><span class="nm">Kurt figürü</span><a class="ask js-ask" data-no="10" data-name="Kurt figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="figur">
+        <button class="zoom" type="button" data-no="16" aria-label="Ay ve kadın figürü büyük göster"><img src="urunler/orijinal/urun-16.webp" alt="Ay ve kadın figürü" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 16 · Figür</span><span class="nm">Ay ve kadın figürü</span><a class="ask js-ask" data-no="16" data-name="Ay ve kadın figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="figur">
+        <button class="zoom" type="button" data-no="11" aria-label="Koşan at figürü büyük göster"><img src="urunler/orijinal/urun-11.webp" alt="Koşan at figürü" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 11 · Figür</span><span class="nm">Koşan at figürü</span><a class="ask js-ask" data-no="11" data-name="Koşan at figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="07" aria-label="Spiral uzun vazo büyük göster"><img src="urunler/orijinal/urun-07.webp" alt="Spiral uzun vazo" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 07 · Vazo</span><span class="nm">Spiral uzun vazo</span><a class="ask js-ask" data-no="07" data-name="Spiral uzun vazo" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="09" aria-label="Fırfırlı vazo ikilisi büyük göster"><img src="urunler/orijinal/urun-09.webp" alt="Fırfırlı vazo ikilisi" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 09 · Vazo</span><span class="nm">Fırfırlı vazo ikilisi</span><a class="ask js-ask" data-no="09" data-name="Fırfırlı vazo ikilisi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="saksi">
+        <button class="zoom" type="button" data-no="15" aria-label="Spiral saksı seti büyük göster"><img src="urunler/orijinal/urun-15.webp" alt="Spiral saksı seti" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 15 · Saksı</span><span class="nm">Spiral saksı seti</span><a class="ask js-ask" data-no="15" data-name="Spiral saksı seti" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="05" aria-label="Asimetrik vazo büyük göster"><img src="urunler/orijinal/urun-05.webp" alt="Asimetrik vazo" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 05 · Vazo</span><span class="nm">Asimetrik vazo</span><a class="ask js-ask" data-no="05" data-name="Asimetrik vazo" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="08" aria-label="Yaprak formlu vazo büyük göster"><img src="urunler/orijinal/urun-08.webp" alt="Yaprak formlu vazo" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 08 · Vazo</span><span class="nm">Yaprak formlu vazo</span><a class="ask js-ask" data-no="08" data-name="Yaprak formlu vazo" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="02" aria-label="Spiral vazo serisi büyük göster"><img src="urunler/orijinal/urun-02.webp" alt="Spiral vazo serisi" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 02 · Vazo</span><span class="nm">Spiral vazo serisi</span><a class="ask js-ask" data-no="02" data-name="Spiral vazo serisi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="04" aria-label="Halka vazo ikilisi büyük göster"><img src="urunler/orijinal/urun-04.webp" alt="Halka vazo ikilisi" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 04 · Vazo</span><span class="nm">Halka vazo ikilisi</span><a class="ask js-ask" data-no="04" data-name="Halka vazo ikilisi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="saksi">
+        <button class="zoom" type="button" data-no="01" aria-label="Desenli saksı seti büyük göster"><img src="urunler/orijinal/urun-01.webp" alt="Desenli saksı seti" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 01 · Saksı</span><span class="nm">Desenli saksı seti</span><a class="ask js-ask" data-no="01" data-name="Desenli saksı seti" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="06" aria-label="Çizgili vazo ve tepsi seti büyük göster"><img src="urunler/orijinal/urun-06.webp" alt="Çizgili vazo ve tepsi seti" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 06 · Vazo</span><span class="nm">Çizgili vazo ve tepsi seti</span><a class="ask js-ask" data-no="06" data-name="Çizgili vazo ve tepsi seti" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="12" aria-label="Halka vazo büyük göster"><img src="urunler/orijinal/urun-12.webp" alt="Halka vazo" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 12 · Vazo</span><span class="nm">Halka vazo</span><a class="ask js-ask" data-no="12" data-name="Halka vazo" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="13" aria-label="LOVE dekor seti büyük göster"><img src="urunler/orijinal/urun-13.webp" alt="LOVE dekor seti" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 13 · Vazo</span><span class="nm">LOVE dekor seti</span><a class="ask js-ask" data-no="13" data-name="LOVE dekor seti" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="vazo">
+        <button class="zoom" type="button" data-no="14" aria-label="Yapraklı vazo büyük göster"><img src="urunler/orijinal/urun-14.webp" alt="Yapraklı vazo" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 14 · Vazo</span><span class="nm">Yapraklı vazo</span><a class="ask js-ask" data-no="14" data-name="Yapraklı vazo" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="saksi">
+        <button class="zoom" type="button" data-no="03" aria-label="Saksı ve kalemlik koleksiyonu büyük göster"><img src="urunler/orijinal/urun-03.webp" alt="Saksı ve kalemlik koleksiyonu" width="1000" height="1000" loading="lazy"></button>
+        <figcaption><span class="no">No. 03 · Saksı</span><span class="nm">Saksı ve kalemlik koleksiyonu</span><a class="ask js-ask" data-no="03" data-name="Saksı ve kalemlik koleksiyonu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Ürün görünümü">
+    <button class="lb-close" type="button" aria-label="Kapat">×</button>
+    <button class="lb-nav lb-prev" type="button" aria-label="Önceki ürün">‹</button>
+    <img id="lb-img" src="" alt="">
+    <button class="lb-nav lb-next" type="button" aria-label="Sonraki ürün">›</button>
+    <div class="lb-bar"><div><span class="no" id="lb-no"></span><span class="nm" id="lb-nm"></span></div><a class="ask" id="lb-ask" href="#" target="_blank" rel="noopener">Fiyat sor</a></div>
+  </dialog>
+
+  <section class="block" id="hizmetler">
+    <h2>Neler yapıyoruz?</h2>
+    <p class="intro">Aşağıdakiler sadece birkaç örnek. Hemen her konuda, istediğiniz ürünü size özel üretebiliyoruz.</p>
+    <div class="services">
+      <article class="service">
+        <h3>Çizgi film ve süper kahraman figürleri</h3>
+        <p>Sevdiğiniz karakterler masanızda, rafınızda ya da hediye paketinde.</p>
+        <div class="spec">karakter · koleksiyon · hediye</div>
+      </article>
+      <article class="service">
+        <h3>Hayvan figürleri</h3>
+        <p>Sevimli tarzda ya da gerçeğe yakın detaylarla hayvan figürleri.</p>
+        <div class="spec">sevimli · gerçekçi</div>
+      </article>
+      <article class="service">
+        <h3>Vazo ve saksılar</h3>
+        <p>Eviniz, ofisiniz ve bitkileriniz için desenli, özgün tasarımlar.</p>
+        <div class="spec">dekor · bitki · hediye</div>
+      </article>
+      <article class="service">
+        <h3>Size özel üretim</h3>
+        <p>Aklınızdaki konu listede yoksa yazın. Fotoğraf ya da fikirden sizin için tasarlayıp basıyoruz.</p>
+        <div class="spec">istediğiniz konu, renk ve boyut</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Nasıl sipariş verilir?</h2>
+    <ol class="steps">
+      <li><h3>Mesaj atın</h3><p>WhatsApp'tan ne istediğinizi yazın, varsa fotoğraf veya dosya ekleyin.</p></li>
+      <li><h3>Fiyatı onaylayın</h3><p>Boyut, renk ve teslim tarihiyle birlikte net fiyatı size iletelim.</p></li>
+      <li><h3>Teslim alın</h3><p>Baskı bitince elden teslim ya da kargo ile gönderiyoruz.</p></li>
+    </ol>
+  </section>
+
+  <section class="block">
+    <div class="contact">
+      <div>
+        <h2>Hemen yazın</h2>
+        <p>Sorularınızı WhatsApp'tan yanıtlıyoruz.</p>
+        <div class="num"><span id="wa-num"></span><button class="copy" id="copy-btn" type="button">Kopyala</button></div>
+      </div>
+      <a class="btn btn-wa js-wa" href="#" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#wa-icon"/></svg>WhatsApp'ı aç</a>
+    </div>
+  </section>
+
+  <footer>© <span id="yr"></span> AHİ.3D · 3D Baskı ve Tasarım Atölyesi</footer>
+</div>
+
+<a class="float-wa js-wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp'tan yazın"><svg aria-hidden="true"><use href="#wa-icon"/></svg></a>
+
+<script>
+  // Buraya kendi numaranızı ülke koduyla, boşluksuz yazın (örnek: 905321234567)
+  const WHATSAPP_NUMBER = "905431837005";
+  // Site yayına alınınca buraya adresi yazın (örnek: "https://ahi3d.com"). Dolu olunca "Fiyat sor" mesajına ürün sayfası bağlantısı eklenir ve WhatsApp ürün fotoğrafını gösterir.
+  const SITE_URL = "https://hasanbol352-dev.github.io/ahi3d";
+  const WHATSAPP_MESSAGE = "Merhaba AHİ.3D, bir ürün hakkında bilgi almak istiyorum.";
+
+  const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_MESSAGE);
+  document.querySelectorAll(".js-wa").forEach(a => a.href = url);
+  document.querySelectorAll(".js-ask").forEach(a => {
+    a.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent("Merhaba AHİ.3D, sitenizdeki " + a.dataset.no + " numaralı ürün (" + a.dataset.name + ") hakkında fiyat almak istiyorum." + (SITE_URL ? "\n" + SITE_URL + "/urun/" + a.dataset.no + ".html" : ""));
+  });
+
+  const n = WHATSAPP_NUMBER;
+  const pretty = "+" + n.slice(0, 2) + " " + n.slice(2, 5) + " " + n.slice(5, 8) + " " + n.slice(8, 10) + " " + n.slice(10);
+  document.getElementById("wa-num").textContent = pretty;
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  const btn = document.getElementById("copy-btn");
+  btn.addEventListener("click", () => {
+    navigator.clipboard.writeText(pretty).then(() => { btn.textContent = "Kopyalandı"; },
+      () => { const r = document.createRange(); r.selectNodeContents(document.getElementById("wa-num")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); });
+  });
+
+  const askMsg = (no, name) => "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent("Merhaba AHİ.3D, sitenizdeki " + no + " numaralı ürün (" + name + ") hakkında fiyat almak istiyorum." + (SITE_URL ? "\n" + SITE_URL + "/urun/" + no + ".html" : ""));
+  document.querySelectorAll(".chip").forEach(c => c.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(x => x.classList.toggle("on", x === c));
+    document.querySelectorAll("#gallery .item").forEach(it => it.hidden = !(c.dataset.f === "all" || it.dataset.cat === c.dataset.f));
+  }));
+  const lb = document.getElementById("lightbox");
+  let cur = 0;
+  const lbImg = document.getElementById("lb-img");
+  const srcFor = no => "urunler/orijinal/urun-" + no + ".webp";
+  const visible = () => [...document.querySelectorAll("#gallery .item:not([hidden])")];
+  function show(i) {
+    const items = visible(); cur = (i + items.length) % items.length;
+    const it = items[cur], a = it.querySelector(".js-ask");
+    lbImg.src = srcFor(a.dataset.no);
+    document.getElementById("lb-img").alt = a.dataset.name;
+    document.getElementById("lb-no").textContent = it.querySelector(".no").textContent;
+    document.getElementById("lb-nm").textContent = a.dataset.name;
+    document.getElementById("lb-ask").href = askMsg(a.dataset.no, a.dataset.name);
+  }
+  document.querySelectorAll(".zoom").forEach(z => z.addEventListener("click", () => {
+    show(visible().indexOf(z.closest(".item"))); lb.showModal();
+  }));
+  lb.querySelector(".lb-close").onclick = () => lb.close();
+  lb.querySelector(".lb-prev").onclick = () => show(cur - 1);
+  lb.querySelector(".lb-next").onclick = () => show(cur + 1);
+  lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
+  lb.addEventListener("keydown", e => { if (e.key === "ArrowLeft") show(cur - 1); if (e.key === "ArrowRight") show(cur + 1); });
+
+  const tilt = document.getElementById("tilt"), pr = tilt.querySelector(".print");
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    tilt.addEventListener("pointermove", e => {
+      const r = tilt.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      pr.style.transform = `rotateY(${x * 18}deg) rotateX(${-y * 14}deg)`;
+    });
+    tilt.addEventListener("pointerleave", () => { pr.style.transform = ""; });
+  }
+</script>
+</body>
+</html>
