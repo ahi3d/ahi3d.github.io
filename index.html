@@ -115,7 +115,7 @@ header.top { padding-block: 1.25rem; display: flex; align-items: center; justify
 .zoom { all: unset; cursor: zoom-in; display: block; overflow: hidden; flex: 1; }
 .zoom:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .item img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform .5s ease; }
-.item[data-cat="futbol"] img, .item[data-cat="hat"] img, .item[data-cat="tutsu"] img, .item[data-cat="mumluk"] img { object-fit: contain; background: #e9e4da; }
+.item[data-cat="futbol"] img, .item[data-cat="hat"] img, .item[data-cat="tutsu"] img, .item[data-cat="mumluk"] img, .item[data-cat="telefon"] img { object-fit: contain; background: #e9e4da; }
 .item:hover img { transform: scale(1.05); }
 .item figcaption { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "no ask" "nm ask"; align-items: center; column-gap: .75rem; padding: .85rem 1rem 1rem; }
 .item .no, .lightbox .no { grid-area: no; font-family: var(--mono); font-size: .72rem; color: #a9c98a; letter-spacing: .06em; display: block; }
@@ -210,10 +210,11 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
     <h2>Ürünlerimizden</h2>
     <p class="intro">Hepsi atölyemizde basıldı. Bir ürüne dokunup büyük görün, beğendiyseniz "Fiyat sor" ile ürün numarasıyla birlikte WhatsApp'tan yazın.</p>
     <div class="filters" role="group" aria-label="Ürünleri filtrele">
-      <button type="button" class="chip on" data-f="all">Tümü <span>72</span></button>
+      <button type="button" class="chip on" data-f="all">Tümü <span>86</span></button>
       <button type="button" class="chip" data-f="futbol">Futbol <span>16</span></button>
       <button type="button" class="chip" data-f="hat">Hat Sanatı <span>4</span></button>
       <button type="button" class="chip" data-f="tutsu">Tütsülükler <span>17</span></button>
+      <button type="button" class="chip" data-f="telefon">Telefon Tutucular <span>14</span></button>
       <button type="button" class="chip" data-f="lamba">Lambalar <span>8</span></button>
       <button type="button" class="chip" data-f="vazo">Vazolar <span>15</span></button>
       <button type="button" class="chip" data-f="mumluk">Mumluklar <span>6</span></button>
@@ -508,6 +509,62 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
       <figure class="item" data-cat="tutsu">
         <button class="zoom" type="button" data-no="72" aria-label="Samuray tütsülük büyük göster"><img src="urunler/orijinal/urun-72.webp" alt="Samuray tütsülük" width="1000" height="737" loading="lazy"></button>
         <figcaption><span class="no">No. 72 · Tütsülük</span><span class="nm">Samuray tütsülük</span><a class="ask js-ask" data-no="72" data-name="Samuray tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="73" aria-label="Charmander telefon tutucu büyük göster"><img src="urunler/orijinal/urun-73.webp" alt="Charmander telefon tutucu" width="1000" height="724" loading="lazy"></button>
+        <figcaption><span class="no">No. 73 · Telefon Tutucu</span><span class="nm">Charmander telefon tutucu</span><a class="ask js-ask" data-no="73" data-name="Charmander telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="74" aria-label="Uzanan kedi telefon tutucu büyük göster"><img src="urunler/orijinal/urun-74.webp" alt="Uzanan kedi telefon tutucu" width="916" height="816" loading="lazy"></button>
+        <figcaption><span class="no">No. 74 · Telefon Tutucu</span><span class="nm">Uzanan kedi telefon tutucu</span><a class="ask js-ask" data-no="74" data-name="Uzanan kedi telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="75" aria-label="Kapibara telefon tutucu büyük göster"><img src="urunler/orijinal/urun-75.webp" alt="Kapibara telefon tutucu" width="1000" height="752" loading="lazy"></button>
+        <figcaption><span class="no">No. 75 · Telefon Tutucu</span><span class="nm">Kapibara telefon tutucu</span><a class="ask js-ask" data-no="75" data-name="Kapibara telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="76" aria-label="Panda telefon tutucu büyük göster"><img src="urunler/orijinal/urun-76.webp" alt="Panda telefon tutucu" width="1000" height="743" loading="lazy"></button>
+        <figcaption><span class="no">No. 76 · Telefon Tutucu</span><span class="nm">Panda telefon tutucu</span><a class="ask js-ask" data-no="76" data-name="Panda telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="77" aria-label="Gri kedi telefon tutucu büyük göster"><img src="urunler/orijinal/urun-77.webp" alt="Gri kedi telefon tutucu" width="1000" height="745" loading="lazy"></button>
+        <figcaption><span class="no">No. 77 · Telefon Tutucu</span><span class="nm">Gri kedi telefon tutucu</span><a class="ask js-ask" data-no="77" data-name="Gri kedi telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="78" aria-label="Beyaz ejderha telefon tutucu büyük göster"><img src="urunler/orijinal/urun-78.webp" alt="Beyaz ejderha telefon tutucu" width="1000" height="735" loading="lazy"></button>
+        <figcaption><span class="no">No. 78 · Telefon Tutucu</span><span class="nm">Beyaz ejderha telefon tutucu</span><a class="ask js-ask" data-no="78" data-name="Beyaz ejderha telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="79" aria-label="Siyah ejderha telefon tutucu büyük göster"><img src="urunler/orijinal/urun-79.webp" alt="Siyah ejderha telefon tutucu" width="1000" height="746" loading="lazy"></button>
+        <figcaption><span class="no">No. 79 · Telefon Tutucu</span><span class="nm">Siyah ejderha telefon tutucu</span><a class="ask js-ask" data-no="79" data-name="Siyah ejderha telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="80" aria-label="Sırtüstü kedi telefon tutucu büyük göster"><img src="urunler/orijinal/urun-80.webp" alt="Sırtüstü kedi telefon tutucu" width="930" height="682" loading="lazy"></button>
+        <figcaption><span class="no">No. 80 · Telefon Tutucu</span><span class="nm">Sırtüstü kedi telefon tutucu</span><a class="ask js-ask" data-no="80" data-name="Sırtüstü kedi telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="81" aria-label="Stitch telefon tutucu büyük göster"><img src="urunler/orijinal/urun-81.webp" alt="Stitch telefon tutucu" width="556" height="312" loading="lazy"></button>
+        <figcaption><span class="no">No. 81 · Telefon Tutucu</span><span class="nm">Stitch telefon tutucu</span><a class="ask js-ask" data-no="81" data-name="Stitch telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="82" aria-label="Garfield telefon tutucu büyük göster"><img src="urunler/orijinal/urun-82.webp" alt="Garfield telefon tutucu" width="1000" height="606" loading="lazy"></button>
+        <figcaption><span class="no">No. 82 · Telefon Tutucu</span><span class="nm">Garfield telefon tutucu</span><a class="ask js-ask" data-no="82" data-name="Garfield telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="83" aria-label="Tavuk telefon tutucu büyük göster"><img src="urunler/orijinal/urun-83.webp" alt="Tavuk telefon tutucu" width="783" height="650" loading="lazy"></button>
+        <figcaption><span class="no">No. 83 · Telefon Tutucu</span><span class="nm">Tavuk telefon tutucu</span><a class="ask js-ask" data-no="83" data-name="Tavuk telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="84" aria-label="Tombul kedi telefon tutucu seti büyük göster"><img src="urunler/orijinal/urun-84.webp" alt="Tombul kedi telefon tutucu seti" width="1000" height="736" loading="lazy"></button>
+        <figcaption><span class="no">No. 84 · Telefon Tutucu</span><span class="nm">Tombul kedi telefon tutucu seti</span><a class="ask js-ask" data-no="84" data-name="Tombul kedi telefon tutucu seti" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="85" aria-label="Tavşan telefon tutucu büyük göster"><img src="urunler/orijinal/urun-85.webp" alt="Tavşan telefon tutucu" width="872" height="570" loading="lazy"></button>
+        <figcaption><span class="no">No. 85 · Telefon Tutucu</span><span class="nm">Tavşan telefon tutucu</span><a class="ask js-ask" data-no="85" data-name="Tavşan telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="telefon">
+        <button class="zoom" type="button" data-no="86" aria-label="My Melody telefon tutucu büyük göster"><img src="urunler/orijinal/urun-86.webp" alt="My Melody telefon tutucu" width="872" height="568" loading="lazy"></button>
+        <figcaption><span class="no">No. 86 · Telefon Tutucu</span><span class="nm">My Melody telefon tutucu</span><a class="ask js-ask" data-no="86" data-name="My Melody telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
       </figure>
     </div>
   </section>
