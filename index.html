@@ -115,7 +115,7 @@ header.top { padding-block: 1.25rem; display: flex; align-items: center; justify
 .zoom { all: unset; cursor: zoom-in; display: block; overflow: hidden; flex: 1; }
 .zoom:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .item img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform .5s ease; }
-.item[data-cat="futbol"] img { object-fit: contain; background: #e9e4da; }
+.item[data-cat="futbol"] img, .item[data-cat="hat"] img { object-fit: contain; background: #e9e4da; }
 .item:hover img { transform: scale(1.05); }
 .item figcaption { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "no ask" "nm ask"; align-items: center; column-gap: .75rem; padding: .85rem 1rem 1rem; }
 .item .no, .lightbox .no { grid-area: no; font-family: var(--mono); font-size: .72rem; color: #a9c98a; letter-spacing: .06em; display: block; }
@@ -210,8 +210,9 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
     <h2>Ürünlerimizden</h2>
     <p class="intro">Hepsi atölyemizde basıldı. Bir ürüne dokunup büyük görün, beğendiyseniz "Fiyat sor" ile ürün numarasıyla birlikte WhatsApp'tan yazın.</p>
     <div class="filters" role="group" aria-label="Ürünleri filtrele">
-      <button type="button" class="chip on" data-f="all">Tümü <span>48</span></button>
+      <button type="button" class="chip on" data-f="all">Tümü <span>52</span></button>
       <button type="button" class="chip" data-f="futbol">Futbol <span>16</span></button>
+      <button type="button" class="chip" data-f="hat">Hat Sanatı <span>4</span></button>
       <button type="button" class="chip" data-f="lamba">Lambalar <span>8</span></button>
       <button type="button" class="chip" data-f="vazo">Vazolar <span>15</span></button>
       <button type="button" class="chip" data-f="mumluk">Mumluklar <span>3</span></button>
@@ -410,6 +411,22 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
       <figure class="item" data-cat="futbol">
         <button class="zoom" type="button" data-no="48" aria-label="Kanté Fenerbahçe forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-48.webp" alt="Kanté Fenerbahçe forma çerçevesi" width="682" height="919" loading="lazy"></button>
         <figcaption><span class="no">No. 48 · Futbol</span><span class="nm">Kanté Fenerbahçe forma çerçevesi</span><a class="ask js-ask" data-no="48" data-name="Kanté Fenerbahçe forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="hat">
+        <button class="zoom" type="button" data-no="49" aria-label="Elhamdülillah duvar levhası büyük göster"><img src="urunler/orijinal/urun-49.webp" alt="Elhamdülillah duvar levhası" width="686" height="924" loading="lazy"></button>
+        <figcaption><span class="no">No. 49 · Hat Sanatı</span><span class="nm">Elhamdülillah duvar levhası</span><a class="ask js-ask" data-no="49" data-name="Elhamdülillah duvar levhası" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="hat">
+        <button class="zoom" type="button" data-no="50" aria-label="Lale çerçeveli hat levhası büyük göster"><img src="urunler/orijinal/urun-50.webp" alt="Lale çerçeveli hat levhası" width="1000" height="757" loading="lazy"></button>
+        <figcaption><span class="no">No. 50 · Hat Sanatı</span><span class="nm">Lale çerçeveli hat levhası</span><a class="ask js-ask" data-no="50" data-name="Lale çerçeveli hat levhası" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="hat">
+        <button class="zoom" type="button" data-no="51" aria-label="Bayram hilal dekoru büyük göster"><img src="urunler/orijinal/urun-51.webp" alt="Bayram hilal dekoru" width="1000" height="755" loading="lazy"></button>
+        <figcaption><span class="no">No. 51 · Hat Sanatı</span><span class="nm">Bayram hilal dekoru</span><a class="ask js-ask" data-no="51" data-name="Bayram hilal dekoru" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="hat">
+        <button class="zoom" type="button" data-no="52" aria-label="Besmele hilal dekoru büyük göster"><img src="urunler/orijinal/urun-52.webp" alt="Besmele hilal dekoru" width="693" height="886" loading="lazy"></button>
+        <figcaption><span class="no">No. 52 · Hat Sanatı</span><span class="nm">Besmele hilal dekoru</span><a class="ask js-ask" data-no="52" data-name="Besmele hilal dekoru" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
       </figure>
     </div>
   </section>
