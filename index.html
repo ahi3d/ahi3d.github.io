@@ -115,7 +115,7 @@ header.top { padding-block: 1.25rem; display: flex; align-items: center; justify
 .zoom { all: unset; cursor: zoom-in; display: block; overflow: hidden; flex: 1; }
 .zoom:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .item img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform .5s ease; }
-.item[data-cat="futbol"] img, .item[data-cat="hat"] img { object-fit: contain; background: #e9e4da; }
+.item[data-cat="futbol"] img, .item[data-cat="hat"] img, .item[data-cat="tutsu"] img, .item[data-cat="mumluk"] img { object-fit: contain; background: #e9e4da; }
 .item:hover img { transform: scale(1.05); }
 .item figcaption { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "no ask" "nm ask"; align-items: center; column-gap: .75rem; padding: .85rem 1rem 1rem; }
 .item .no, .lightbox .no { grid-area: no; font-family: var(--mono); font-size: .72rem; color: #a9c98a; letter-spacing: .06em; display: block; }
@@ -210,12 +210,13 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
     <h2>Ürünlerimizden</h2>
     <p class="intro">Hepsi atölyemizde basıldı. Bir ürüne dokunup büyük görün, beğendiyseniz "Fiyat sor" ile ürün numarasıyla birlikte WhatsApp'tan yazın.</p>
     <div class="filters" role="group" aria-label="Ürünleri filtrele">
-      <button type="button" class="chip on" data-f="all">Tümü <span>52</span></button>
+      <button type="button" class="chip on" data-f="all">Tümü <span>68</span></button>
       <button type="button" class="chip" data-f="futbol">Futbol <span>16</span></button>
       <button type="button" class="chip" data-f="hat">Hat Sanatı <span>4</span></button>
+      <button type="button" class="chip" data-f="tutsu">Tütsülükler <span>13</span></button>
       <button type="button" class="chip" data-f="lamba">Lambalar <span>8</span></button>
       <button type="button" class="chip" data-f="vazo">Vazolar <span>15</span></button>
-      <button type="button" class="chip" data-f="mumluk">Mumluklar <span>3</span></button>
+      <button type="button" class="chip" data-f="mumluk">Mumluklar <span>6</span></button>
       <button type="button" class="chip" data-f="figur">Figürler <span>3</span></button>
       <button type="button" class="chip" data-f="saksi">Saksılar <span>3</span></button>
     </div>
@@ -427,6 +428,70 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
       <figure class="item" data-cat="hat">
         <button class="zoom" type="button" data-no="52" aria-label="Besmele hilal dekoru büyük göster"><img src="urunler/orijinal/urun-52.webp" alt="Besmele hilal dekoru" width="693" height="886" loading="lazy"></button>
         <figcaption><span class="no">No. 52 · Hat Sanatı</span><span class="nm">Besmele hilal dekoru</span><a class="ask js-ask" data-no="52" data-name="Besmele hilal dekoru" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="53" aria-label="Akrep figürlü tütsülük büyük göster"><img src="urunler/orijinal/urun-53.webp" alt="Akrep figürlü tütsülük" width="1000" height="736" loading="lazy"></button>
+        <figcaption><span class="no">No. 53 · Tütsülük</span><span class="nm">Akrep figürlü tütsülük</span><a class="ask js-ask" data-no="53" data-name="Akrep figürlü tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="54" aria-label="Esneyen kedi tütsülük büyük göster"><img src="urunler/orijinal/urun-54.webp" alt="Esneyen kedi tütsülük" width="1000" height="731" loading="lazy"></button>
+        <figcaption><span class="no">No. 54 · Tütsülük</span><span class="nm">Esneyen kedi tütsülük</span><a class="ask js-ask" data-no="54" data-name="Esneyen kedi tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="55" aria-label="Darth Vader tütsülük büyük göster"><img src="urunler/orijinal/urun-55.webp" alt="Darth Vader tütsülük" width="1000" height="736" loading="lazy"></button>
+        <figcaption><span class="no">No. 55 · Tütsülük</span><span class="nm">Darth Vader tütsülük</span><a class="ask js-ask" data-no="55" data-name="Darth Vader tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="56" aria-label="Kayıkçı tütsülük büyük göster"><img src="urunler/orijinal/urun-56.webp" alt="Kayıkçı tütsülük" width="1000" height="754" loading="lazy"></button>
+        <figcaption><span class="no">No. 56 · Tütsülük</span><span class="nm">Kayıkçı tütsülük</span><a class="ask js-ask" data-no="56" data-name="Kayıkçı tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="57" aria-label="Koi balıklı şelale tütsülük büyük göster"><img src="urunler/orijinal/urun-57.webp" alt="Koi balıklı şelale tütsülük" width="1000" height="734" loading="lazy"></button>
+        <figcaption><span class="no">No. 57 · Tütsülük</span><span class="nm">Koi balıklı şelale tütsülük</span><a class="ask js-ask" data-no="57" data-name="Koi balıklı şelale tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="58" aria-label="Dağ ve lotus tütsülük büyük göster"><img src="urunler/orijinal/urun-58.webp" alt="Dağ ve lotus tütsülük" width="1000" height="720" loading="lazy"></button>
+        <figcaption><span class="no">No. 58 · Tütsülük</span><span class="nm">Dağ ve lotus tütsülük</span><a class="ask js-ask" data-no="58" data-name="Dağ ve lotus tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="59" aria-label="Lotus çiçeği tütsülük büyük göster"><img src="urunler/orijinal/urun-59.webp" alt="Lotus çiçeği tütsülük" width="1000" height="740" loading="lazy"></button>
+        <figcaption><span class="no">No. 59 · Tütsülük</span><span class="nm">Lotus çiçeği tütsülük</span><a class="ask js-ask" data-no="59" data-name="Lotus çiçeği tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="60" aria-label="Astronot tütsülük büyük göster"><img src="urunler/orijinal/urun-60.webp" alt="Astronot tütsülük" width="1000" height="723" loading="lazy"></button>
+        <figcaption><span class="no">No. 60 · Tütsülük</span><span class="nm">Astronot tütsülük</span><a class="ask js-ask" data-no="60" data-name="Astronot tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="61" aria-label="Lotus kayık tütsülük büyük göster"><img src="urunler/orijinal/urun-61.webp" alt="Lotus kayık tütsülük" width="1000" height="731" loading="lazy"></button>
+        <figcaption><span class="no">No. 61 · Tütsülük</span><span class="nm">Lotus kayık tütsülük</span><a class="ask js-ask" data-no="61" data-name="Lotus kayık tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="62" aria-label="Kuzgun tütsülük büyük göster"><img src="urunler/orijinal/urun-62.webp" alt="Kuzgun tütsülük" width="1000" height="743" loading="lazy"></button>
+        <figcaption><span class="no">No. 62 · Tütsülük</span><span class="nm">Kuzgun tütsülük</span><a class="ask js-ask" data-no="62" data-name="Kuzgun tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="63" aria-label="Dalga formlu tütsülük büyük göster"><img src="urunler/orijinal/urun-63.webp" alt="Dalga formlu tütsülük" width="1000" height="731" loading="lazy"></button>
+        <figcaption><span class="no">No. 63 · Tütsülük</span><span class="nm">Dalga formlu tütsülük</span><a class="ask js-ask" data-no="63" data-name="Dalga formlu tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="64" aria-label="Salyangoz tütsülük büyük göster"><img src="urunler/orijinal/urun-64.webp" alt="Salyangoz tütsülük" width="1000" height="742" loading="lazy"></button>
+        <figcaption><span class="no">No. 64 · Tütsülük</span><span class="nm">Salyangoz tütsülük</span><a class="ask js-ask" data-no="64" data-name="Salyangoz tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="tutsu">
+        <button class="zoom" type="button" data-no="65" aria-label="Kaplumbağa tütsülük büyük göster"><img src="urunler/orijinal/urun-65.webp" alt="Kaplumbağa tütsülük" width="1000" height="721" loading="lazy"></button>
+        <figcaption><span class="no">No. 65 · Tütsülük</span><span class="nm">Kaplumbağa tütsülük</span><a class="ask js-ask" data-no="65" data-name="Kaplumbağa tütsülük" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="mumluk">
+        <button class="zoom" type="button" data-no="66" aria-label="Kale mumluk büyük göster"><img src="urunler/orijinal/urun-66.webp" alt="Kale mumluk" width="1000" height="739" loading="lazy"></button>
+        <figcaption><span class="no">No. 66 · Mumluk</span><span class="nm">Kale mumluk</span><a class="ask js-ask" data-no="66" data-name="Kale mumluk" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="mumluk">
+        <button class="zoom" type="button" data-no="67" aria-label="Kedili mumluk büyük göster"><img src="urunler/orijinal/urun-67.webp" alt="Kedili mumluk" width="1000" height="740" loading="lazy"></button>
+        <figcaption><span class="no">No. 67 · Mumluk</span><span class="nm">Kedili mumluk</span><a class="ask js-ask" data-no="67" data-name="Kedili mumluk" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="mumluk">
+        <button class="zoom" type="button" data-no="68" aria-label="Kukuletalı figür mumluk büyük göster"><img src="urunler/orijinal/urun-68.webp" alt="Kukuletalı figür mumluk" width="1000" height="733" loading="lazy"></button>
+        <figcaption><span class="no">No. 68 · Mumluk</span><span class="nm">Kukuletalı figür mumluk</span><a class="ask js-ask" data-no="68" data-name="Kukuletalı figür mumluk" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
       </figure>
     </div>
   </section>
