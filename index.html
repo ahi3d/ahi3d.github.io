@@ -115,7 +115,7 @@ header.top { padding-block: 1.25rem; display: flex; align-items: center; justify
 .zoom { all: unset; cursor: zoom-in; display: block; overflow: hidden; flex: 1; }
 .zoom:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .item img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform .5s ease; }
-.item[data-cat="futbol"] img, .item[data-cat="hat"] img, .item[data-cat="tutsu"] img, .item[data-cat="mumluk"] img, .item[data-cat="telefon"] img { object-fit: contain; background: #e9e4da; }
+.item[data-cat="futbol"] img, .item[data-cat="hat"] img, .item[data-cat="tutsu"] img, .item[data-cat="mumluk"] img, .item[data-cat="telefon"] img, .item.fit img { object-fit: contain; background: #e9e4da; }
 .item:hover img { transform: scale(1.05); }
 .item figcaption { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "no ask" "nm ask"; align-items: center; column-gap: .75rem; padding: .85rem 1rem 1rem; }
 .item .no, .lightbox .no { grid-area: no; font-family: var(--mono); font-size: .72rem; color: #a9c98a; letter-spacing: .06em; display: block; }
@@ -210,15 +210,15 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
     <h2>Ürünlerimizden</h2>
     <p class="intro">Hepsi atölyemizde basıldı. Bir ürüne dokunup büyük görün, beğendiyseniz "Fiyat sor" ile ürün numarasıyla birlikte WhatsApp'tan yazın.</p>
     <div class="filters" role="group" aria-label="Ürünleri filtrele">
-      <button type="button" class="chip on" data-f="all">Tümü <span>86</span></button>
+      <button type="button" class="chip on" data-f="all">Tümü <span>94</span></button>
       <button type="button" class="chip" data-f="futbol">Futbol <span>16</span></button>
       <button type="button" class="chip" data-f="hat">Hat Sanatı <span>4</span></button>
       <button type="button" class="chip" data-f="tutsu">Tütsülükler <span>17</span></button>
       <button type="button" class="chip" data-f="telefon">Telefon Tutucular <span>14</span></button>
-      <button type="button" class="chip" data-f="lamba">Lambalar <span>8</span></button>
+      <button type="button" class="chip" data-f="lamba">Lambalar <span>9</span></button>
       <button type="button" class="chip" data-f="vazo">Vazolar <span>15</span></button>
       <button type="button" class="chip" data-f="mumluk">Mumluklar <span>6</span></button>
-      <button type="button" class="chip" data-f="figur">Figürler <span>3</span></button>
+      <button type="button" class="chip" data-f="figur">Figürler <span>10</span></button>
       <button type="button" class="chip" data-f="saksi">Saksılar <span>3</span></button>
     </div>
     <div class="gallery" id="gallery">
@@ -565,6 +565,38 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
       <figure class="item" data-cat="telefon">
         <button class="zoom" type="button" data-no="86" aria-label="My Melody telefon tutucu büyük göster"><img src="urunler/orijinal/urun-86.webp" alt="My Melody telefon tutucu" width="872" height="568" loading="lazy"></button>
         <figcaption><span class="no">No. 86 · Telefon Tutucu</span><span class="nm">My Melody telefon tutucu</span><a class="ask js-ask" data-no="86" data-name="My Melody telefon tutucu" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item fit" data-cat="lamba">
+        <button class="zoom" type="button" data-no="87" aria-label="Kuzu gece lambası büyük göster"><img src="urunler/orijinal/urun-87.webp" alt="Kuzu gece lambası" width="684" height="918" loading="lazy"></button>
+        <figcaption><span class="no">No. 87 · Lamba</span><span class="nm">Kuzu gece lambası</span><a class="ask js-ask" data-no="87" data-name="Kuzu gece lambası" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item fit" data-cat="figur">
+        <button class="zoom" type="button" data-no="88" aria-label="Umbreon figürü büyük göster"><img src="urunler/orijinal/urun-88.webp" alt="Umbreon figürü" width="1000" height="727" loading="lazy"></button>
+        <figcaption><span class="no">No. 88 · Figür</span><span class="nm">Umbreon figürü</span><a class="ask js-ask" data-no="88" data-name="Umbreon figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item fit" data-cat="figur">
+        <button class="zoom" type="button" data-no="89" aria-label="Pikachu figürü büyük göster"><img src="urunler/orijinal/urun-89.webp" alt="Pikachu figürü" width="690" height="923" loading="lazy"></button>
+        <figcaption><span class="no">No. 89 · Figür</span><span class="nm">Pikachu figürü</span><a class="ask js-ask" data-no="89" data-name="Pikachu figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item fit" data-cat="figur">
+        <button class="zoom" type="button" data-no="90" aria-label="Squirtle figürü büyük göster"><img src="urunler/orijinal/urun-90.webp" alt="Squirtle figürü" width="1000" height="746" loading="lazy"></button>
+        <figcaption><span class="no">No. 90 · Figür</span><span class="nm">Squirtle figürü</span><a class="ask js-ask" data-no="90" data-name="Squirtle figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item fit" data-cat="figur">
+        <button class="zoom" type="button" data-no="91" aria-label="Jolteon figürü büyük göster"><img src="urunler/orijinal/urun-91.webp" alt="Jolteon figürü" width="1000" height="802" loading="lazy"></button>
+        <figcaption><span class="no">No. 91 · Figür</span><span class="nm">Jolteon figürü</span><a class="ask js-ask" data-no="91" data-name="Jolteon figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item fit" data-cat="figur">
+        <button class="zoom" type="button" data-no="92" aria-label="Totodile figürü büyük göster"><img src="urunler/orijinal/urun-92.webp" alt="Totodile figürü" width="1000" height="750" loading="lazy"></button>
+        <figcaption><span class="no">No. 92 · Figür</span><span class="nm">Totodile figürü</span><a class="ask js-ask" data-no="92" data-name="Totodile figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item fit" data-cat="figur">
+        <button class="zoom" type="button" data-no="93" aria-label="Kapüşonlu Donald Duck figürü büyük göster"><img src="urunler/orijinal/urun-93.webp" alt="Kapüşonlu Donald Duck figürü" width="581" height="617" loading="lazy"></button>
+        <figcaption><span class="no">No. 93 · Figür</span><span class="nm">Kapüşonlu Donald Duck figürü</span><a class="ask js-ask" data-no="93" data-name="Kapüşonlu Donald Duck figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item fit" data-cat="figur">
+        <button class="zoom" type="button" data-no="94" aria-label="Kapüşonlu Spider-Man figürü büyük göster"><img src="urunler/orijinal/urun-94.webp" alt="Kapüşonlu Spider-Man figürü" width="586" height="560" loading="lazy"></button>
+        <figcaption><span class="no">No. 94 · Figür</span><span class="nm">Kapüşonlu Spider-Man figürü</span><a class="ask js-ask" data-no="94" data-name="Kapüşonlu Spider-Man figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
       </figure>
     </div>
   </section>
