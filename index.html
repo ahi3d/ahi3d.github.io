@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AHİ.3D</title>
-<meta name="description" content="AHİ.3D 3D Baskı ve Tasarım Atölyesi: figürler, vazolar, saksılar, lambalar ve size özel üretim. WhatsApp'tan fiyat sorun.">
+<meta name="description" content="AHİ.3D 3D Baskı ve Tasarım Atölyesi: futbol hediyeleri, figürler, vazolar, lambalar ve size özel üretim. WhatsApp'tan fiyat sorun.">
 <meta property="og:title" content="AHİ.3D · 3D Baskı ve Tasarım Atölyesi">
-<meta property="og:description" content="Figürler, vazolar, saksılar, lambalar ve size özel 3D baskı. WhatsApp'tan fiyat sorun.">
+<meta property="og:description" content="Futbol hediyeleri, figürler, vazolar, lambalar ve size özel 3D baskı. WhatsApp'tan fiyat sorun.">
 <meta property="og:image" content="https://ahi3d.github.io/og-logo.jpg">
 <meta property="og:url" content="https://ahi3d.github.io/">
 <meta property="og:type" content="website">
@@ -115,6 +115,7 @@ header.top { padding-block: 1.25rem; display: flex; align-items: center; justify
 .zoom { all: unset; cursor: zoom-in; display: block; overflow: hidden; flex: 1; }
 .zoom:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .item img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform .5s ease; }
+.item[data-cat="futbol"] img { object-fit: contain; background: #e9e4da; }
 .item:hover img { transform: scale(1.05); }
 .item figcaption { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "no ask" "nm ask"; align-items: center; column-gap: .75rem; padding: .85rem 1rem 1rem; }
 .item .no, .lightbox .no { grid-area: no; font-family: var(--mono); font-size: .72rem; color: #a9c98a; letter-spacing: .06em; display: block; }
@@ -209,7 +210,8 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
     <h2>Ürünlerimizden</h2>
     <p class="intro">Hepsi atölyemizde basıldı. Bir ürüne dokunup büyük görün, beğendiyseniz "Fiyat sor" ile ürün numarasıyla birlikte WhatsApp'tan yazın.</p>
     <div class="filters" role="group" aria-label="Ürünleri filtrele">
-      <button type="button" class="chip on" data-f="all">Tümü <span>32</span></button>
+      <button type="button" class="chip on" data-f="all">Tümü <span>48</span></button>
+      <button type="button" class="chip" data-f="futbol">Futbol <span>16</span></button>
       <button type="button" class="chip" data-f="lamba">Lambalar <span>8</span></button>
       <button type="button" class="chip" data-f="vazo">Vazolar <span>15</span></button>
       <button type="button" class="chip" data-f="mumluk">Mumluklar <span>3</span></button>
@@ -344,6 +346,70 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
       <figure class="item" data-cat="vazo">
         <button class="zoom" type="button" data-no="32" aria-label="Çizgili damla vazo büyük göster"><img src="urunler/orijinal/urun-32.webp" alt="Çizgili damla vazo" width="1000" height="1000" loading="lazy"></button>
         <figcaption><span class="no">No. 32 · Vazo</span><span class="nm">Çizgili damla vazo</span><a class="ask js-ask" data-no="32" data-name="Çizgili damla vazo" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="33" aria-label="Sarı-lacivert kanarya figürü büyük göster"><img src="urunler/orijinal/urun-33.webp" alt="Sarı-lacivert kanarya figürü" width="820" height="915" loading="lazy"></button>
+        <figcaption><span class="no">No. 33 · Futbol</span><span class="nm">Sarı-lacivert kanarya figürü</span><a class="ask js-ask" data-no="33" data-name="Sarı-lacivert kanarya figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="34" aria-label="Siyah-beyaz kartal figürü büyük göster"><img src="urunler/orijinal/urun-34.webp" alt="Siyah-beyaz kartal figürü" width="517" height="905" loading="lazy"></button>
+        <figcaption><span class="no">No. 34 · Futbol</span><span class="nm">Siyah-beyaz kartal figürü</span><a class="ask js-ask" data-no="34" data-name="Siyah-beyaz kartal figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="35" aria-label="Ronaldo Portekiz forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-35.webp" alt="Ronaldo Portekiz forma çerçevesi" width="681" height="931" loading="lazy"></button>
+        <figcaption><span class="no">No. 35 · Futbol</span><span class="nm">Ronaldo Portekiz forma çerçevesi</span><a class="ask js-ask" data-no="35" data-name="Ronaldo Portekiz forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="36" aria-label="Messi Arjantin forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-36.webp" alt="Messi Arjantin forma çerçevesi" width="688" height="920" loading="lazy"></button>
+        <figcaption><span class="no">No. 36 · Futbol</span><span class="nm">Messi Arjantin forma çerçevesi</span><a class="ask js-ask" data-no="36" data-name="Messi Arjantin forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="37" aria-label="Ronaldo siluet heykeli büyük göster"><img src="urunler/orijinal/urun-37.webp" alt="Ronaldo siluet heykeli" width="1000" height="740" loading="lazy"></button>
+        <figcaption><span class="no">No. 37 · Futbol</span><span class="nm">Ronaldo siluet heykeli</span><a class="ask js-ask" data-no="37" data-name="Ronaldo siluet heykeli" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="38" aria-label="Messi siluet heykeli büyük göster"><img src="urunler/orijinal/urun-38.webp" alt="Messi siluet heykeli" width="1000" height="735" loading="lazy"></button>
+        <figcaption><span class="no">No. 38 · Futbol</span><span class="nm">Messi siluet heykeli</span><a class="ask js-ask" data-no="38" data-name="Messi siluet heykeli" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="39" aria-label="Osimhen Galatasaray forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-39.webp" alt="Osimhen Galatasaray forma çerçevesi" width="686" height="924" loading="lazy"></button>
+        <figcaption><span class="no">No. 39 · Futbol</span><span class="nm">Osimhen Galatasaray forma çerçevesi</span><a class="ask js-ask" data-no="39" data-name="Osimhen Galatasaray forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="40" aria-label="Orkun Kökçü Beşiktaş forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-40.webp" alt="Orkun Kökçü Beşiktaş forma çerçevesi" width="684" height="916" loading="lazy"></button>
+        <figcaption><span class="no">No. 40 · Futbol</span><span class="nm">Orkun Kökçü Beşiktaş forma çerçevesi</span><a class="ask js-ask" data-no="40" data-name="Orkun Kökçü Beşiktaş forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="41" aria-label="Sarı-lacivert boğa figürü büyük göster"><img src="urunler/orijinal/urun-41.webp" alt="Sarı-lacivert boğa figürü" width="793" height="920" loading="lazy"></button>
+        <figcaption><span class="no">No. 41 · Futbol</span><span class="nm">Sarı-lacivert boğa figürü</span><a class="ask js-ask" data-no="41" data-name="Sarı-lacivert boğa figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="42" aria-label="Rafa Leão Galatasaray forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-42.webp" alt="Rafa Leão Galatasaray forma çerçevesi" width="690" height="920" loading="lazy"></button>
+        <figcaption><span class="no">No. 42 · Futbol</span><span class="nm">Rafa Leão Galatasaray forma çerçevesi</span><a class="ask js-ask" data-no="42" data-name="Rafa Leão Galatasaray forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="43" aria-label="Vlahović Beşiktaş forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-43.webp" alt="Vlahović Beşiktaş forma çerçevesi" width="677" height="921" loading="lazy"></button>
+        <figcaption><span class="no">No. 43 · Futbol</span><span class="nm">Vlahović Beşiktaş forma çerçevesi</span><a class="ask js-ask" data-no="43" data-name="Vlahović Beşiktaş forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="44" aria-label="Greenwood Fenerbahçe forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-44.webp" alt="Greenwood Fenerbahçe forma çerçevesi" width="681" height="918" loading="lazy"></button>
+        <figcaption><span class="no">No. 44 · Futbol</span><span class="nm">Greenwood Fenerbahçe forma çerçevesi</span><a class="ask js-ask" data-no="44" data-name="Greenwood Fenerbahçe forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="45" aria-label="Hyeon-Gyu Oh Beşiktaş forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-45.webp" alt="Hyeon-Gyu Oh Beşiktaş forma çerçevesi" width="673" height="924" loading="lazy"></button>
+        <figcaption><span class="no">No. 45 · Futbol</span><span class="nm">Hyeon-Gyu Oh Beşiktaş forma çerçevesi</span><a class="ask js-ask" data-no="45" data-name="Hyeon-Gyu Oh Beşiktaş forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="46" aria-label="Trossard Beşiktaş forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-46.webp" alt="Trossard Beşiktaş forma çerçevesi" width="691" height="934" loading="lazy"></button>
+        <figcaption><span class="no">No. 46 · Futbol</span><span class="nm">Trossard Beşiktaş forma çerçevesi</span><a class="ask js-ask" data-no="46" data-name="Trossard Beşiktaş forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="47" aria-label="Asensio Fenerbahçe forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-47.webp" alt="Asensio Fenerbahçe forma çerçevesi" width="693" height="922" loading="lazy"></button>
+        <figcaption><span class="no">No. 47 · Futbol</span><span class="nm">Asensio Fenerbahçe forma çerçevesi</span><a class="ask js-ask" data-no="47" data-name="Asensio Fenerbahçe forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>
+      <figure class="item" data-cat="futbol">
+        <button class="zoom" type="button" data-no="48" aria-label="Kanté Fenerbahçe forma çerçevesi büyük göster"><img src="urunler/orijinal/urun-48.webp" alt="Kanté Fenerbahçe forma çerçevesi" width="682" height="919" loading="lazy"></button>
+        <figcaption><span class="no">No. 48 · Futbol</span><span class="nm">Kanté Fenerbahçe forma çerçevesi</span><a class="ask js-ask" data-no="48" data-name="Kanté Fenerbahçe forma çerçevesi" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
       </figure>
     </div>
   </section>
