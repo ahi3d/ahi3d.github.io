@@ -117,6 +117,13 @@ header.top { padding-block: 1.25rem; display: flex; align-items: center; justify
 .item img { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform .5s ease; }
 .item[data-cat="futbol"] img, .item[data-cat="hat"] img, .item[data-cat="tutsu"] img, .item[data-cat="mumluk"] img, .item[data-cat="telefon"] img, .item.fit img { object-fit: contain; background: #e9e4da; }
 .item:hover img { transform: scale(1.05); }
+.zoom { position: relative; }
+.item[data-photos] .zoom::after { content: attr(data-count); position: absolute; top: .6rem; right: .6rem; font: 600 .75rem var(--body); background: rgba(15,47,39,.85); color: #eef4ec; padding: .3rem .6rem; border-radius: 999px; }
+.lb-thumbs { display: flex; gap: .5rem; justify-content: center; background: #0f2f27; padding: .6rem .75rem 0; }
+.lb-thumbs[hidden] { display: none; }
+.lb-thumbs button { all: unset; cursor: pointer; width: 3.5rem; height: 3.5rem; border-radius: .5rem; overflow: hidden; outline: 2px solid transparent; opacity: .6; }
+.lb-thumbs button.on { outline-color: #a9c98a; opacity: 1; }
+.lb-thumbs img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; max-height: none; }
 .item figcaption { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "no ask" "nm ask"; align-items: center; column-gap: .75rem; padding: .85rem 1rem 1rem; }
 .item .no, .lightbox .no { grid-area: no; font-family: var(--mono); font-size: .72rem; color: #a9c98a; letter-spacing: .06em; display: block; }
 .item .nm, .lightbox .nm { grid-area: nm; font-weight: 600; font-size: .98rem; line-height: 1.3; display: block; }
@@ -125,7 +132,7 @@ header.top { padding-block: 1.25rem; display: flex; align-items: center; justify
 .ask:hover { filter: brightness(1.08); }
 .lightbox { border: 0; padding: 0; background: transparent; max-width: min(92vw, 46rem); width: 100%; overflow: visible; color: #eef4ec; }
 .lightbox::backdrop { background: rgba(4,16,13,.88); backdrop-filter: blur(4px); }
-.lightbox img { width: 100%; height: auto; max-height: 76vh; object-fit: contain; display: block; border-radius: 1rem 1rem 0 0; background: #0f2f27; }
+.lightbox #lb-img { width: 100%; height: auto; max-height: 68vh; object-fit: contain; display: block; border-radius: 1rem 1rem 0 0; background: #0f2f27; }
 .lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: #0f2f27; padding: 1rem 1.25rem; border-radius: 0 0 1rem 1rem; }
 .lb-close { position: absolute; top: -2.75rem; right: 0; background: none; border: 0; color: #eef4ec; font-size: 2.25rem; line-height: 1; cursor: pointer; }
 .lb-nav { position: absolute; top: 40%; translate: 0 -50%; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 0; background: rgba(238,244,236,.9); color: #0f2f27; font-size: 1.8rem; line-height: 1; cursor: pointer; }
@@ -590,12 +597,12 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
         <button class="zoom" type="button" data-no="92" aria-label="Totodile figürü büyük göster"><img src="urunler/orijinal/urun-92.webp" alt="Totodile figürü" width="1000" height="750" loading="lazy"></button>
         <figcaption><span class="no">No. 92 · Figür</span><span class="nm">Totodile figürü</span><a class="ask js-ask" data-no="92" data-name="Totodile figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
       </figure>
-      <figure class="item fit" data-cat="figur">
-        <button class="zoom" type="button" data-no="93" aria-label="Kapüşonlu Donald Duck figürü büyük göster"><img src="urunler/orijinal/urun-93.webp" alt="Kapüşonlu Donald Duck figürü" width="581" height="617" loading="lazy"></button>
+      <figure class="item fit" data-cat="figur" data-photos="2">
+        <button class="zoom" type="button" data-no="93" data-count="2 foto" aria-label="Kapüşonlu Donald Duck figürü büyük göster"><img src="urunler/orijinal/urun-93.webp" alt="Kapüşonlu Donald Duck figürü" width="581" height="617" loading="lazy"></button>
         <figcaption><span class="no">No. 93 · Figür</span><span class="nm">Kapüşonlu Donald Duck figürü</span><a class="ask js-ask" data-no="93" data-name="Kapüşonlu Donald Duck figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
       </figure>
-      <figure class="item fit" data-cat="figur">
-        <button class="zoom" type="button" data-no="94" aria-label="Kapüşonlu Spider-Man figürü büyük göster"><img src="urunler/orijinal/urun-94.webp" alt="Kapüşonlu Spider-Man figürü" width="586" height="560" loading="lazy"></button>
+      <figure class="item fit" data-cat="figur" data-photos="2">
+        <button class="zoom" type="button" data-no="94" data-count="2 foto" aria-label="Kapüşonlu Spider-Man figürü büyük göster"><img src="urunler/orijinal/urun-94.webp" alt="Kapüşonlu Spider-Man figürü" width="586" height="560" loading="lazy"></button>
         <figcaption><span class="no">No. 94 · Figür</span><span class="nm">Kapüşonlu Spider-Man figürü</span><a class="ask js-ask" data-no="94" data-name="Kapüşonlu Spider-Man figürü" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
       </figure>
     </div>
@@ -606,6 +613,7 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
     <button class="lb-nav lb-prev" type="button" aria-label="Önceki ürün">‹</button>
     <img id="lb-img" src="" alt="">
     <button class="lb-nav lb-next" type="button" aria-label="Sonraki ürün">›</button>
+    <div class="lb-thumbs" id="lb-thumbs" hidden></div>
     <div class="lb-bar"><div><span class="no" id="lb-no"></span><span class="nm" id="lb-nm"></span></div><a class="ask" id="lb-ask" href="#" target="_blank" rel="noopener">Fiyat sor</a></div>
   </dialog>
 
@@ -698,7 +706,19 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
   function show(i) {
     const items = visible(); cur = (i + items.length) % items.length;
     const it = items[cur], a = it.querySelector(".js-ask");
-    lbImg.src = srcFor(a.dataset.no);
+    const n = +(it.dataset.photos || 1), no = a.dataset.no;
+    const srcs = [srcFor(no)];
+    for (let k = 2; k <= n; k++) srcs.push("urunler/orijinal/urun-" + no + "-" + k + ".webp");
+    lbImg.src = srcs[0];
+    const th = document.getElementById("lb-thumbs");
+    th.hidden = n < 2; th.innerHTML = "";
+    if (n > 1) srcs.forEach((src, k) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = k ? "" : "on";
+      b.setAttribute("aria-label", "Fotoğraf " + (k + 1));
+      b.innerHTML = '<img src="' + src + '" alt="">';
+      b.onclick = () => { lbImg.src = src; th.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b)); };
+      th.appendChild(b);
+    });
     document.getElementById("lb-img").alt = a.dataset.name;
     document.getElementById("lb-no").textContent = it.querySelector(".no").textContent;
     document.getElementById("lb-nm").textContent = a.dataset.name;
