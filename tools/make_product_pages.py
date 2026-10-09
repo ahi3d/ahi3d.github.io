@@ -3,7 +3,7 @@ import sys, os, re, html
 base=sys.argv[1].rstrip('/')
 root=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 src=open(os.path.join(root,'index.html'),encoding='utf-8').read()
-items=re.findall(r'data-no="(\d\d)" data-name="([^"]+)" href', src)
+items=re.findall(r'data-no="(\d+)" data-name="([^"]+)" href', src)
 num=re.search(r'WHATSAPP_NUMBER = "(\d+)"',src).group(1)
 os.makedirs(os.path.join(root,'urun'),exist_ok=True)
 for no,name in dict(items).items():
