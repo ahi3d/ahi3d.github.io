@@ -160,7 +160,9 @@ section.block h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; lett
 .copy { font: 600 .8rem var(--body); background: transparent; color: var(--bg); border: 1px solid currentColor; border-radius: 999px; padding: .3rem .75rem; cursor: pointer; opacity: .85; }
 .copy:hover { opacity: 1; }
 
-footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
+footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.admin-link { color: var(--muted); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: .35rem .9rem; font-size: .85rem; }
+.admin-link:hover { color: var(--ink); border-color: var(--accent); }
 
 .float-wa { position: fixed; right: 1.25rem; bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); width: 3.75rem; height: 3.75rem; border-radius: 50%; background: var(--wa); color: var(--wa-ink); display: grid; place-items: center; box-shadow: 0 10px 24px -8px rgba(0,0,0,.45); z-index: 10; transition: transform .15s ease; }
 .float-wa:hover { transform: scale(1.07); }
@@ -848,7 +850,7 @@ footer { padding-block: 2.5rem 6rem; color: var(--muted); font-size: .9rem; }
     </div>
   </section>
 
-  <footer>© <span id="yr"></span> AHİ.3D · 3D Baskı ve Tasarım Atölyesi</footer>
+  <footer><span>© <span id="yr"></span> AHİ.3D · 3D Baskı ve Tasarım Atölyesi</span><a class="admin-link" href="yonetim/" rel="nofollow">🔒 Yönetim</a></footer>
 </div>
 
 <a class="float-wa js-wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp'tan yazın"><svg aria-hidden="true"><use href="#wa-icon"/></svg></a>

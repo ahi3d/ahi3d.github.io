@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AHİ.3D Yönetim</title>
+<style>
+:root { --bg:#0c1f1a; --surface:#13302a; --ink:#eef4ec; --muted:#a3b8aa; --line:#23443b; --accent:#a9c98a; --ok:#25c264; --bad:#ff8a7a; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 24px 16px 80px; }
+h1 { font-size: 1.5rem; margin: 0 0 4px; }
+h2 { font-size: 1.15rem; margin: 0 0 12px; }
+.sub { color: var(--muted); margin: 0 0 24px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+label { display: block; font-weight: 600; margin: 12px 0 4px; }
+input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; }
+input[type=file] { padding: 10px; }
+button { font: inherit; font-weight: 700; border: 0; border-radius: 999px; padding: 12px 22px; cursor: pointer; background: var(--accent); color: #0c1f1a; }
+button.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+button.danger { background: transparent; color: var(--bad); border: 1.5px solid var(--bad); }
+button:disabled { opacity: .5; cursor: wait; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+.msg { margin-top: 12px; min-height: 1.5em; }
+.msg.ok { color: var(--ok); } .msg.bad { color: var(--bad); }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.tabs button { background: transparent; color: var(--ink); border: 1.5px solid var(--line); padding: 8px 16px; }
+.tabs button.on { background: var(--accent); color: #0c1f1a; border-color: var(--accent); }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.who { color: var(--muted); font-size: .95rem; }
+.prev { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.prev img { width: 84px; height: 84px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
+.list { display: grid; gap: 10px; }
+.prod { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 12px; }
+.prod img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; background: #e9e4da; }
+.prod small { color: var(--muted); display: block; }
+.prod button { padding: 8px 14px; }
+.users { display: grid; gap: 12px; }
+.users .u { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.hint { color: var(--muted); font-size: .9rem; }
+.hint code { background: var(--bg); padding: 1px 6px; border-radius: 6px; }
+a { color: var(--accent); }
+[hidden] { display: none !important; }
+.edit { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 6px; grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div>
+      <h1>AHİ.3D Yönetim</h1>
+      <p class="sub">Ürün ekleme, düzenleme ve silme</p>
+    </div>
+    <div id="whoBox" hidden><span class="who" id="who"></span> <button class="ghost" id="logout" type="button">Çıkış</button></div>
+  </div>
+
+  <!-- Giriş -->
+  <section class="card" id="loginView" hidden>
+    <h2>Giriş</h2>
+    <form id="loginForm">
+      <label for="lName">Kullanıcı adı</label>
+      <input id="lName" autocomplete="username" required>
+      <label for="lPass">Şifre</label>
+      <input id="lPass" type="password" autocomplete="current-password" required>
+      <div class="row"><button type="submit">Giriş yap</button> <a href="../">Siteye dön</a></div>
+      <div class="msg" id="loginMsg"></div>
+    </form>
+  </section>
+
+  <!-- Kurulum / kullanıcılar -->
+  <section class="card" id="setupView" hidden>
+    <h2 id="setupTitle">İlk kurulum</h2>
+    <form id="setupForm">
+      <div id="tokenBox">
+        <p class="hint">Bu adım bir kere yapılır. GitHub'da bu siteye yazma izni olan bir anahtar (token) oluşturup buraya yapıştırın. Anahtar sadece şifreli olarak saklanır, kimse açık halini göremez.</p>
+        <label for="sToken">GitHub anahtarı (token)</label>
+        <input id="sToken" autocomplete="off" spellcheck="false" placeholder="github_pat_...">
+      </div>
+      <p class="hint">3 kişinin kullanıcı adını ve şifresini belirleyin. Şifreler en az 8 karakter olmalı. Boş bıraktığınız satır kaydedilmez.</p>
+      <div class="users" id="userRows"></div>
+      <div class="row"><button type="submit">Kaydet</button> <button class="ghost" type="button" id="setupCancel" hidden>Vazgeç</button></div>
+      <div class="msg" id="setupMsg"></div>
+    </form>
+  </section>
+
+  <!-- Panel -->
+  <section id="panelView" hidden>
+    <div class="tabs">
+      <button type="button" class="on" data-tab="add">Yeni ürün ekle</button>
+      <button type="button" data-tab="list">Ürünler</button>
+      <button type="button" data-tab="users">Kullanıcılar</button>
+    </div>
+
+    <div class="card" data-pane="add">
+      <h2>Yeni ürün ekle</h2>
+      <form id="addForm">
+        <label for="aPhotos">Fotoğraflar (ilk seçilen ana fotoğraf olur)</label>
+        <input id="aPhotos" type="file" accept="image/*" multiple required>
+        <div class="prev" id="aPrev"></div>
+        <label for="aName">Ürün adı</label>
+        <input id="aName" required maxlength="80" placeholder="Örnek: Ejderha figürü">
+        <label for="aCat">Kategori</label>
+        <select id="aCat" required></select>
+        <div class="row"><button type="submit">Siteye ekle</button></div>
+        <div class="msg" id="addMsg"></div>
+      </form>
+    </div>
+
+    <div class="card" data-pane="list" hidden>
+      <h2>Ürünler <span class="hint" id="listCount"></span></h2>
+      <label for="q">Ara (ad veya numara)</label>
+      <input id="q" placeholder="Örnek: Pikachu veya 89">
+      <div class="msg" id="listMsg"></div>
+      <div class="list" id="list"></div>
+    </div>
+
+    <div class="card" data-pane="users" hidden>
+      <h2>Kullanıcılar</h2>
+      <p class="hint">Kullanıcı adlarını ve şifreleri buradan değiştirebilirsiniz.</p>
+      <div class="row"><button type="button" id="editUsers">Kullanıcıları düzenle</button></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const OWNER = "ahi3d", REPO = "ahi3d.github.io", BRANCH = "main";
+const SITE = "https://ahi3d.github.io";
+const WHATSAPP_NUMBER = "905431837005";
+const USERS_PATH = "yonetim/kullanicilar.json";
+const API = "https://api.github.com/repos/" + OWNER + "/" + REPO;
+const ITER = 310000;
+const CATS = [
+  ["figur", "Figürler", "Figür"], ["vazo", "Vazolar", "Vazo"], ["saksi", "Saksılar", "Saksı"],
+  ["lamba", "Lambalar", "Lamba"], ["mumluk", "Mumluklar", "Mumluk"], ["tutsu", "Tütsülükler", "Tütsülük"],
+  ["telefon", "Telefon Tutucular", "Telefon Tutucu"], ["futbol", "Futbol", "Futbol"], ["hat", "Hat Sanatı", "Hat Sanatı"],
+];
+const CAT_LABEL = Object.fromEntries(CATS.map(c => [c[0], c[2]]));
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const norm = s => s.trim().toLocaleLowerCase("tr");
+const say = (el, text, cls) => { el.textContent = text; el.className = "msg" + (cls ? " " + cls : ""); };
+
+let TOKEN = null, ME = null, USERS = null;
+
+/* ---------- şifreleme ---------- */
+const b64 = buf => { let s = ""; const b = new Uint8Array(buf); for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode.apply(null, b.subarray(i, i + 0x8000)); return btoa(s); };
+const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function keyFor(pass, salt, iter) {
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: iter, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+}
+async function seal(token, name, pass) {
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, await keyFor(pass, salt, ITER), new TextEncoder().encode(token));
+  return { name: name.trim(), iter: ITER, salt: b64(salt), iv: b64(iv), ct: b64(ct) };
+}
+async function unseal(u, pass, iter) {
+  const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: unb64(u.iv) }, await keyFor(pass, unb64(u.salt), iter), unb64(u.ct));
+  return new TextDecoder().decode(pt);
+}
+
+/* ---------- GitHub ---------- */
+async function gh(path, opt = {}) {
+  const r = await fetch(API + path, { ...opt, headers: { Authorization: "Bearer " + TOKEN, Accept: opt.raw ? "application/vnd.github.raw+json" : "application/vnd.github+json", ...(opt.body ? { "Content-Type": "application/json" } : {}) }, cache: "no-store" });
+  if (!r.ok) { const e = new Error("GitHub " + r.status); e.status = r.status; e.body = await r.text().catch(() => ""); throw e; }
+  return opt.raw ? r.text() : r.status === 204 ? null : r.json();
+}
+const utf8b64 = s => b64(new TextEncoder().encode(s));
+async function readFile(path) { return gh("/contents/" + path.split("/").map(encodeURIComponent).join("/") + "?ref=" + BRANCH, { raw: true }); }
+
+// files: [{path, b64}] or [{path, del:true}]
+async function commit(files, message) {
+  const ref = await gh("/git/ref/heads/" + BRANCH);
+  const head = ref.object.sha;
+  const base = await gh("/git/commits/" + head);
+  const tree = [];
+  let existing = null;
+  for (const f of files) {
+    if (f.del) {
+      if (!existing) existing = new Set((await gh("/git/trees/" + base.tree.sha + "?recursive=1")).tree.map(t => t.path));
+      if (existing.has(f.path)) tree.push({ path: f.path, mode: "100644", type: "blob", sha: null });
+      continue;
+    }
+    const blob = await gh("/git/blobs", { method: "POST", body: JSON.stringify({ content: f.b64, encoding: "base64" }) });
+    tree.push({ path: f.path, mode: "100644", type: "blob", sha: blob.sha });
+  }
+  if (!tree.length) return;
+  const t = await gh("/git/trees", { method: "POST", body: JSON.stringify({ base_tree: base.tree.sha, tree }) });
+  const c = await gh("/git/commits", { method: "POST", body: JSON.stringify({ message, tree: t.sha, parents: [head] }) });
+  await gh("/git/refs/heads/" + BRANCH, { method: "PATCH", body: JSON.stringify({ sha: c.sha }) });
+}
+// read index.html, let edit() change it and return extra files, commit; retry once if someone saved at the same time
+async function editSite(edit, message) {
+  for (let attempt = 0; ; attempt++) {
+    const html = await readFile("index.html");
+    const { html: out, files = [] } = await edit(html);
+    try { return await commit([{ path: "index.html", b64: utf8b64(out) }, ...files], message); }
+    catch (e) { if (attempt === 0 && (e.status === 422 || e.status === 409)) continue; throw e; }
+  }
+}
+
+/* ---------- sayfa (index.html) işlemleri ---------- */
+const FIG_RE = /<figure class="([^"]*)" data-cat="([^"]*)"(?: data-photos="(\d+)")?>\s*<button class="zoom" type="button" data-no="(\d+)"[\s\S]*?<\/figure>/g;
+function parseItems(html) {
+  return [...html.matchAll(FIG_RE)].map(m => {
+    const block = m[0];
+    const name = (block.match(/data-name="([^"]*)"/) || [])[1] || "";
+    const w = +(block.match(/ width="(\d+)"/) || [])[1] || 1000, h = +(block.match(/ height="(\d+)"/) || [])[1] || 1000;
+    return { block, cls: m[1], cat: m[2], photos: +(m[3] || 1), no: +m[4], name: name.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"), w, h };
+  });
+}
+function figureHTML(o) {
+  const n = o.no, nm = esc(o.name), lab = esc(CAT_LABEL[o.cat] || "Ürün");
+  const ph = o.photos > 1 ? ` data-photos="${o.photos}"` : "", cnt = o.photos > 1 ? ` data-count="${o.photos} foto"` : "";
+  return `<figure class="${o.cls}" data-cat="${o.cat}"${ph}>
+        <button class="zoom" type="button" data-no="${n}"${cnt} aria-label="${nm} büyük göster"><img src="urunler/orijinal/urun-${n}.webp" alt="${nm}" width="${o.w}" height="${o.h}" loading="lazy"></button>
+        <figcaption><span class="no">No. ${n} · ${lab}</span><span class="nm">${nm}</span><a class="ask js-ask" data-no="${n}" data-name="${nm}" href="#" target="_blank" rel="noopener">Fiyat sor</a></figcaption>
+      </figure>`;
+}
+function recount(html) {
+  const items = parseItems(html);
+  return html.replace(/(<button type="button" class="chip[^"]*" data-f="([a-z]+)">[^<]*<span>)\d+(<\/span>)/g,
+    (_, a, f, b) => a + (f === "all" ? items.length : items.filter(i => i.cat === f).length) + b);
+}
+function productPage(no, name) {
+  const t = esc(name + " · AHİ.3D"), img = `${SITE}/urunler/og/urun-${no}.jpg`;
+  const msg = `Merhaba AHİ.3D, sitenizdeki ${no} numaralı ürün (${name}) hakkında fiyat almak istiyorum.\n${SITE}/urun/${no}.html`;
+  return `<!doctype html><html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${t}</title>
+<meta property="og:title" content="${t}">
+<meta property="og:description" content="No. ${no} · AHİ.3D 3D Baskı ve Tasarım Atölyesi">
+<meta property="og:image" content="${img}"><meta property="">
+<meta property="og:url" content="${SITE}/urun/${no}.html"><meta property="og:type" content="product">
+<style>body{margin:0;background:#0b241f;color:#eef4ec;font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;padding:16px;box-sizing:border-box}main{max-width:34rem;width:100%;text-align:center}img{width:100%;border-radius:16px}a{display:inline-block;margin:12px 6px 0;padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:600}.wa{background:#1fa855;color:#fff}.back{border:1.5px solid #4d6b5e;color:#eef4ec}small{color:#a9c98a;font-family:monospace}</style></head>
+<body><main><img src="../urunler/orijinal/urun-${no}.webp" alt="${esc(name)}"><p><small>No. ${no}</small><br><strong>${esc(name)}</strong></p>
+<a class="wa" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}">WhatsApp'tan fiyat sor</a><a class="back" href="../index.html#urunler">Tüm ürünler</a></main></body></html>`;
+}
+
+/* ---------- fotoğraflar ---------- */
+let WEBP = null;
+async function canWebp() {
+  if (WEBP === null) { const c = document.createElement("canvas"); c.width = c.height = 2; WEBP = c.toDataURL("image/webp").startsWith("data:image/webp"); }
+  return WEBP;
+}
+async function encode(file, max, type, q) {
+  const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+  const r = Math.min(1, max / Math.max(bmp.width, bmp.height));
+  const c = document.createElement("canvas");
+  c.width = Math.round(bmp.width * r); c.height = Math.round(bmp.height * r);
+  const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(bmp, 0, 0, c.width, c.height);
+  const blob = await new Promise(res => c.toBlob(res, type, q));
+  return { b64: b64(await blob.arrayBuffer()), w: c.width, h: c.height };
+}
+// returns {files, w, h, photos}
+async function photoFiles(no, list) {
+  const type = (await canWebp()) ? "image/webp" : "image/jpeg";
+  const files = []; let w = 1000, h = 1000;
+  for (let i = 0; i < list.length; i++) {
+    const big = await encode(list[i], 1000, type, 0.85);
+    files.push({ path: `urunler/orijinal/urun-${no}${i ? "-" + (i + 1) : ""}.webp`, b64: big.b64 });
+    if (i === 0) {
+      w = big.w; h = big.h;
+      files.push({ path: `urunler/og/urun-${no}.jpg`, b64: (await encode(list[i], 800, "image/jpeg", 0.85)).b64 });
+    }
+  }
+  return { files, w, h, photos: list.length };
+}
+const fitClass = (w, h) => Math.abs(w / h - 1) > 0.05 ? "item fit" : "item";
+function previews(input, box) {
+  box.innerHTML = "";
+  [...input.files].forEach(f => { const i = new Image(); i.src = URL.createObjectURL(f); box.append(i); });
+}
+
+/* ---------- ekranlar ---------- */
+function show(view) { ["loginView", "setupView", "panelView"].forEach(v => $("#" + v).hidden = v !== view); $("#whoBox").hidden = view !== "panelView"; }
+
+async function loadUsers() {
+  const r = await fetch("kullanicilar.json?t=" + Date.now(), { cache: "no-store" });
+  return r.ok ? r.json() : null;
+}
+function userRows(names = []) {
+  const box = $("#userRows"); box.innerHTML = "";
+  for (let i = 0; i < 3; i++) box.insertAdjacentHTML("beforeend",
+    `<div class="u"><div><label for="un${i}">${i + 1}. kullanıcı adı</label><input id="un${i}" autocomplete="off" value="${esc(names[i] || "")}"></div>
+     <div><label for="up${i}">Şifre</label><input id="up${i}" type="password" autocomplete="new-password" placeholder="${names[i] ? "Değiştirmek için yazın" : ""}"></div></div>`);
+}
+function openSetup(editing) {
+  $("#setupTitle").textContent = editing ? "Kullanıcıları düzenle" : "İlk kurulum";
+  $("#tokenBox").hidden = !!editing;
+  $("#sToken").required = !editing;
+  $("#setupCancel").hidden = !editing;
+  userRows(editing ? USERS.users.map(u => u.name) : []);
+  say($("#setupMsg"), "");
+  show("setupView");
+}
+
+$("#setupForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const msg = $("#setupMsg"), btn = e.submitter; btn.disabled = true;
+  try {
+    const editing = $("#tokenBox").hidden;
+    const token = editing ? TOKEN : $("#sToken").value.trim();
+    const rows = [0, 1, 2].map(i => ({ name: $("#un" + i).value.trim(), pass: $("#up" + i).value, old: editing ? USERS.users.find(u => norm(u.name) === norm($("#un" + i).value)) : null })).filter(r => r.name);
+    if (!rows.length) throw new Error("En az bir kullanıcı adı yazın.");
+    if (new Set(rows.map(r => norm(r.name))).size !== rows.length) throw new Error("Kullanıcı adları birbirinden farklı olmalı.");
+    for (const r of rows) {
+      if (!r.pass && !(editing && r.old)) throw new Error(r.name + " için şifre yazın.");
+      if (r.pass && r.pass.length < 8) throw new Error(r.name + " için şifre en az 8 karakter olmalı.");
+    }
+    say(msg, "Anahtar kontrol ediliyor...");
+    TOKEN = token;
+    const repo = await gh("").catch(() => null);
+    if (!repo || !(repo.permissions && repo.permissions.push)) { if (!editing) TOKEN = null; throw new Error("Bu anahtar siteye yazamıyor. Anahtarı ve verdiğiniz izinleri kontrol edin."); }
+    say(msg, "Şifreleniyor...");
+    const users = [];
+    for (const r of rows) {
+      if (r.pass) users.push(await seal(token, r.name, r.pass));
+      else users.push({ ...r.old, name: r.name });
+    }
+    const data = { v: 1, users };
+    await commit([{ path: USERS_PATH, b64: utf8b64(JSON.stringify(data, null, 1)) }], "Yönetim: kullanıcılar güncellendi" + (ME ? " (" + ME + ")" : ""));
+    USERS = data;
+    say(msg, "Kaydedildi. Birkaç dakika içinde yeni bilgilerle giriş yapılabilir.", "ok");
+    if (!editing) { TOKEN = null; setTimeout(() => { show("loginView"); say($("#loginMsg"), "Kurulum tamam. Belirlediğiniz kullanıcı adı ve şifreyle giriş yapın (yayına girmesi 1-2 dakika sürebilir).", "ok"); }, 1500); }
+  } catch (err) { say(msg, err.message, "bad"); }
+  finally { btn.disabled = false; }
+});
+$("#setupCancel").addEventListener("click", () => show("panelView"));
+
+$("#loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const msg = $("#loginMsg"), btn = e.submitter; btn.disabled = true;
+  say(msg, "Kontrol ediliyor...");
+  try {
+    USERS = await loadUsers();
+    const u = USERS && USERS.users.find(x => norm(x.name) === norm($("#lName").value));
+    let tok = null;
+    if (u) tok = await unseal(u, $("#lPass").value, u.iter || ITER).catch(() => null);
+    if (!tok) throw new Error("Kullanıcı adı veya şifre yanlış.");
+    TOKEN = tok; ME = u.name;
+    try { sessionStorage.setItem("ahi3d-admin", JSON.stringify({ t: tok, n: u.name })); } catch (_) {}
+    $("#lPass").value = "";
+    enterPanel();
+  } catch (err) { say(msg, err.message, "bad"); }
+  finally { btn.disabled = false; }
+});
+$("#logout").addEventListener("click", () => { try { sessionStorage.removeItem("ahi3d-admin"); } catch (_) {} TOKEN = ME = null; say($("#loginMsg"), ""); show("loginView"); });
+
+function enterPanel() { $("#who").textContent = "Giriş: " + ME; show("panelView"); }
+
+/* ---------- panel ---------- */
+$("#aCat").innerHTML = CATS.map(c => `<option value="${c[0]}">${c[1]}</option>`).join("");
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelectorAll("[data-pane]").forEach(p => p.hidden = p.dataset.pane !== b.dataset.tab);
+  if (b.dataset.tab === "list") loadList();
+}));
+$("#aPhotos").addEventListener("change", () => previews($("#aPhotos"), $("#aPrev")));
+$("#editUsers").addEventListener("click", () => openSetup(true));
+
+const failText = err => err.status === 401 ? "Anahtarın süresi dolmuş ya da silinmiş. Yeni anahtar gerekiyor." : "Kaydedilemedi: " + err.message;
+
+$("#addForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const msg = $("#addMsg"), btn = e.submitter; btn.disabled = true;
+  const name = $("#aName").value.trim(), cat = $("#aCat").value, list = [...$("#aPhotos").files];
+  try {
+    say(msg, "Fotoğraflar hazırlanıyor ve kaydediliyor...");
+    let added = 0;
+    await editSite(async html => {
+      const items = parseItems(html);
+      const no = Math.max(0, ...items.map(i => i.no)) + 1; added = no;
+      const p = await photoFiles(no, list);
+      const fig = figureHTML({ no, name, cat, cls: fitClass(p.w, p.h), photos: p.photos, w: p.w, h: p.h });
+      const last = items[items.length - 1];
+      const at = html.indexOf(last.block) + last.block.length;
+      html = html.slice(0, at) + "\n      " + fig + html.slice(at);
+      return { html: recount(html), files: [...p.files, { path: `urun/${no}.html`, b64: utf8b64(productPage(no, name)) }] };
+    }, `Yönetim (${ME}): ${name} eklendi`);
+    say(msg, `Eklendi: No. ${added} · ${name}. Sitede 1-2 dakika içinde görünür.`, "ok");
+    $("#addForm").reset(); $("#aPrev").innerHTML = "";
+  } catch (err) { say(msg, failText(err), "bad"); }
+  finally { btn.disabled = false; }
+});
+
+let ITEMS = [];
+async function loadList() {
+  const msg = $("#listMsg");
+  say(msg, "Yükleniyor...");
+  try { ITEMS = parseItems(await readFile("index.html")); say(msg, ""); renderList(); }
+  catch (err) { say(msg, failText(err), "bad"); }
+}
+$("#q").addEventListener("input", renderList);
+function renderList() {
+  const q = norm($("#q").value);
+  const rows = ITEMS.filter(i => !q || norm(i.name).includes(q) || String(i.no) === q).slice().reverse();
+  $("#listCount").textContent = "(" + ITEMS.length + ")";
+  $("#list").innerHTML = rows.map(i => `<div class="prod" data-no="${i.no}">
+      <img src="../urunler/orijinal/urun-${i.no}.webp?v=${i.w}x${i.h}" alt="" loading="lazy">
+      <div><strong>${esc(i.name)}</strong><small>No. ${i.no} · ${esc(CAT_LABEL[i.cat] || i.cat)}${i.photos > 1 ? " · " + i.photos + " foto" : ""}</small></div>
+      <div><button type="button" class="ghost js-edit">Düzenle</button></div>
+    </div>`).join("");
+}
+$("#list").addEventListener("click", e => {
+  const row = e.target.closest(".prod"); if (!row) return;
+  const no = +row.dataset.no, it = ITEMS.find(i => i.no === no);
+  if (e.target.closest(".js-edit")) {
+    if (row.querySelector(".edit")) { row.querySelector(".edit").remove(); return; }
+    row.insertAdjacentHTML("beforeend", `<form class="edit">
+      <label>Ürün adı</label><input name="name" required maxlength="80" value="${esc(it.name)}">
+      <label>Kategori</label><select name="cat">${CATS.map(c => `<option value="${c[0]}"${c[0] === it.cat ? " selected" : ""}>${c[1]}</option>`).join("")}</select>
+      <label>Fotoğrafları değiştir (isteğe bağlı)</label><input name="photos" type="file" accept="image/*" multiple><div class="prev"></div>
+      <div class="row"><button type="submit">Kaydet</button><button type="button" class="danger js-del">Ürünü sil</button></div>
+      <div class="msg"></div></form>`);
+    const f = row.querySelector(".edit");
+    f.photos.addEventListener("change", () => previews(f.photos, f.querySelector(".prev")));
+    f.addEventListener("submit", ev => { ev.preventDefault(); saveEdit(no, f, ev.submitter); });
+    f.querySelector(".js-del").addEventListener("click", ev => del(no, f, ev.target));
+  }
+});
+async function saveEdit(no, f, btn) {
+  const msg = f.querySelector(".msg"); btn.disabled = true;
+  const name = f.name.value.trim(), cat = f.cat.value, list = [...f.photos.files];
+  try {
+    say(msg, "Kaydediliyor...");
+    await editSite(async html => {
+      const it = parseItems(html).find(i => i.no === no);
+      if (!it) throw new Error("Ürün sayfada bulunamadı.");
+      const o = { ...it, name, cat };
+      const files = [];
+      if (list.length) {
+        const p = await photoFiles(no, list);
+        files.push(...p.files);
+        for (let k = p.photos + 1; k <= it.photos; k++) files.push({ path: `urunler/orijinal/urun-${no}-${k}.webp`, del: true });
+        Object.assign(o, { w: p.w, h: p.h, photos: p.photos, cls: it.cls.includes("feat") ? it.cls : fitClass(p.w, p.h) });
+      }
+      files.push({ path: `urun/${no}.html`, b64: utf8b64(productPage(no, name)) });
+      return { html: recount(html.replace(it.block, figureHTML(o))), files };
+    }, `Yönetim (${ME}): No. ${no} güncellendi`);
+    await loadList();
+    say($("#listMsg"), `No. ${no} kaydedildi. Sitede 1-2 dakika içinde görünür.`, "ok");
+  } catch (err) { say(msg, failText(err), "bad"); }
+  finally { btn.disabled = false; }
+}
+async function del(no, f, btn) {
+  const it = ITEMS.find(i => i.no === no);
+  if (!confirm(`No. ${no} · ${it.name} siteden silinsin mi?`)) return;
+  const msg = f.querySelector(".msg"); btn.disabled = true;
+  try {
+    say(msg, "Siliniyor...");
+    await editSite(async html => {
+      const cur = parseItems(html).find(i => i.no === no);
+      if (!cur) throw new Error("Ürün zaten silinmiş.");
+      const files = [`urun/${no}.html`, `urunler/og/urun-${no}.jpg`, `urunler/orijinal/urun-${no}.webp`];
+      for (let k = 2; k <= cur.photos; k++) files.push(`urunler/orijinal/urun-${no}-${k}.webp`);
+      return { html: recount(html.replace(new RegExp("\\n\\s*" + cur.block.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), "")), files: files.map(path => ({ path, del: true })) };
+    }, `Yönetim (${ME}): No. ${no} silindi`);
+    ITEMS = ITEMS.filter(i => i.no !== no); renderList();
+    say($("#listMsg"), `No. ${no} silindi. Sitede 1-2 dakika içinde kalkar.`, "ok");
+  } catch (err) { say(msg, failText(err), "bad"); btn.disabled = false; }
+}
+
+/* ---------- başlangıç ---------- */
+(async () => {
+  try { const s = JSON.parse(sessionStorage.getItem("ahi3d-admin") || "null"); if (s) { TOKEN = s.t; ME = s.n; } } catch (_) {}
+  USERS = await loadUsers().catch(() => null);
+  if (!USERS || /kurulum/.test(location.search)) return openSetup(false);
+  if (TOKEN) return enterPanel();
+  show("loginView");
+})();
+</script>
+</body>
+</html>
